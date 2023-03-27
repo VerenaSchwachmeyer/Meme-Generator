@@ -136,7 +136,7 @@ export default function GetMeme() {
               className="inputtext"
               type="text"
               value={text0}
-              placeholder="upper text - drag me!"
+              placeholder="upper text-drag me"
               onChange={(e) => {
                 typeUpperMemeText(e);
               }}
@@ -148,7 +148,7 @@ export default function GetMeme() {
               className="inputtext"
               type="text"
               value={text1}
-              placeholder="lower text - drag me!"
+              placeholder="lower text-drag me"
               rows="2"
               onChange={(e) => {
                 typeLowerMemeText(e);

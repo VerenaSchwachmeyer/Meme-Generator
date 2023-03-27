@@ -1,5 +1,6 @@
 import "./App.css";
 import GetMeme from "./components/GetMeme";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         meme. Or upload your own file.
       </p>
       <GetMeme />
+      <Footer />
     </div>
   );
 }

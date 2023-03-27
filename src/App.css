@@ -1,3 +1,8 @@
+:root {
+  --color-dark: black;
+  --color-bright: white;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -26,6 +31,8 @@ p {
   height: 400px;
   display: block;
   position: relative;
+  outline: 0.1rem solid var(--color-dark);
+  outline-offset: 0.2rem;
   /* border: 1px solid red; */
 }
 
@@ -41,14 +48,13 @@ form {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  outline: 0.1rem solid black;
-  outline-offset: 0.2rem;
+
   box-sizing: content-box;
 }
 
 .inputtext {
   display: block;
-  color: white;
+  color: var(--color-bright);
   border: none;
   width: 99%;
   height: 50px;
@@ -87,8 +93,8 @@ form {
 
 button {
   min-width: 100px;
-  background-color: black;
-  color: white;
+  background-color: var(--color-dark);
+  color: var(--color-bright);
   padding: 4%;
   margin: 5%;
   border-radius: 5px;
@@ -96,4 +102,11 @@ button {
 
 .pickFile {
   margin: 20px;
+  width: 100%;
+}
+
+footer {
+  width: 100%;
+  height: 10vh;
+  background-color: var(--color-dark);
 }
