@@ -1,2 +1,2 @@
 
-
+permalink: /index.html
