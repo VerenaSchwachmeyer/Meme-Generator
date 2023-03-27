@@ -1,27 +1,29 @@
 import { useState, useEffect } from "react";
-import Draggable from "react-draggable";
 import UploadFile from "./UploadFile";
 import domtoimage from "dom-to-image";
+import CreateTextBoxes from "./CreateTextBoxes";
 
-// import MemeGenerator from "./MemeGenerator";
-
-export default function GetMeme() {
+export default function GetImage() {
   const [memes, setMemes] = useState();
   const [indexNumber, setIndexNumber] = useState(0);
   const [text0, setText0] = useState();
   const [text1, setText1] = useState();
-  const [URL, setURL] = useState("https://api.imgflip.com/get_memes");
+  const [URL, setURL] = useState();
   const [reset, setReset] = useState(true);
 
-  const getMemefromAPI = async ({ URL }) => {
+  const getMemefromAPI = async () => {
     try {
-      const response = await fetch({ URL });
+      const response = await fetch("https://api.imgflip.com/get_memes");
       const data = await response.json();
       setMemes(data.data.memes);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getMemefromAPI();
+  }, [reset]);
 
   const decreaseIndexNumber = () => {
     if (indexNumber >= 1) {
@@ -37,38 +39,8 @@ export default function GetMeme() {
     }
   };
 
-  const typeUpperMemeText = (e) => {
-    e.preventDefault();
-    setText0(e.target.value);
-  };
-
-  const typeLowerMemeText = (e) => {
-    e.preventDefault();
-    setText1(e.target.value);
-  };
-
   const postMeme = (e) => {
     e.preventDefault();
-
-    // const part2Bsaved = document.getElementById("memeContainer");
-
-    // domtoimage
-    //   .toPng(part2Bsaved)
-    //   .then(function ({ URL }) {
-    //     var img = new Image();
-    //     img.src = { URL };
-    //     document.body.appendChild(img);
-    //   })
-    //   .catch(function (error) {
-    //     console.error("oops, something went wrong!", error);
-    //   });
-    // console.log("here debug");
-
-    // domtoimage
-    //   .toBlob(document.getElementById("memeContainer"))
-    //   .then(function (blob) {
-    //     Window.saveAs(blob, "my-Meme.png");
-    //   });
 
     domtoimage
       .toJpeg(document.getElementById("memeContainer"), { quality: 0.95 })
@@ -79,18 +51,6 @@ export default function GetMeme() {
         link.click();
       });
   };
-
-  useEffect(
-    ({ URL }) => {
-      getMemefromAPI({ URL });
-    },
-    [reset]
-  );
-
-  useEffect(() => {
-    setText0("");
-    setText1("");
-  }, [indexNumber]);
 
   return (
     <div>
@@ -129,31 +89,13 @@ export default function GetMeme() {
               alt="meme"
             ></img>
           )}
-          <Draggable bounds="parent" disabled={true}>
-            <input
-              id="input1"
-              className="inputtext"
-              type="text"
-              value={text0}
-              placeholder="upper text-drag me"
-              onChange={(e) => {
-                typeUpperMemeText(e);
-              }}
-            ></input>
-          </Draggable>
-          <Draggable bounds="parent">
-            <input
-              id="input2"
-              className="inputtext"
-              type="text"
-              value={text1}
-              placeholder="lower text-drag me"
-              rows="2"
-              onChange={(e) => {
-                typeLowerMemeText(e);
-              }}
-            ></input>
-          </Draggable>
+          <CreateTextBoxes
+            text0={text0}
+            text1={text1}
+            setText0={setText0}
+            setText1={setText1}
+            indexNumber={indexNumber}
+          />
         </div>
 
         <button
@@ -170,6 +112,7 @@ export default function GetMeme() {
             setReset(!reset);
             setText0("");
             setText1("");
+            setURL();
             setIndexNumber(0);
           }}
         >

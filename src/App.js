@@ -1,5 +1,5 @@
 import "./App.css";
-import GetMeme from "./components/GetMeme";
+import GetImage from "./components/GetImage";
 import Footer from "./components/Footer";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         Pick an image from our database that catches you and create your own
         meme. Or upload your own file.
       </p>
-      <GetMeme />
+      <GetImage />
       <Footer />
     </div>
   );
