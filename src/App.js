@@ -4,7 +4,7 @@ import GetMeme from "./components/GetMeme";
 function App() {
   return (
     <div className="App">
-      <h1>Memefy yourself!</h1>
+      <h1>MEMEFY YOUR THOUGHTS</h1>
 
       <p>
         <strong>

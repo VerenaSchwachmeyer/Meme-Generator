@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Draggable, { DraggableCore } from "react-draggable";
 import UploadFile from "./UploadFile";
 import domtoimage from "dom-to-image";
@@ -11,6 +11,7 @@ export default function GetMeme() {
   const [text0, setText0] = useState();
   const [text1, setText1] = useState();
   const [URL, setURL] = useState();
+  const [reset, setReset] = useState(true);
 
   let primaryURL = "https://api.imgflip.com/get_memes";
 
@@ -84,7 +85,8 @@ export default function GetMeme() {
 
   useEffect(() => {
     getMemefromAPI(primaryURL);
-  }, []);
+    setReset(false);
+  }, [reset === true]);
 
   useEffect(() => {
     setText0("");
@@ -116,18 +118,19 @@ export default function GetMeme() {
         <div id="memeContainer" className="memeContainer">
           {URL && (
             <>
-              <img src={URL} className="photo" alt=""></img>
+              <img id="photo" src={URL} className="photo" alt=""></img>
             </>
           )}
 
           {memes && (
             <img
+              id="photo"
               className="photo"
               src={memes[indexNumber].url}
               alt="meme image"
             ></img>
           )}
-          <Draggable>
+          <Draggable bounds="parent">
             <input
               id="input1"
               className="inputtext"
@@ -139,7 +142,7 @@ export default function GetMeme() {
               }}
             ></input>
           </Draggable>
-          <Draggable>
+          <Draggable bounds="parent">
             <input
               id="input2"
               className="inputtext"
@@ -160,13 +163,15 @@ export default function GetMeme() {
             postMeme(e);
           }}
         >
-          Generate meme
+          Download meme
         </button>
         <button
           id="submit"
           onClick={(e) => {
+            setReset(true);
             setText0("");
             setText1("");
+            setIndexNumber(0);
           }}
         >
           Reset

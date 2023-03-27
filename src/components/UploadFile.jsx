@@ -1,8 +1,6 @@
 import { useState } from "react";
 
 export default function UploadFile({ setURL, setMemes }) {
-  const [file, setFile] = useState();
-
   return (
     <div>
       <input
@@ -10,8 +8,7 @@ export default function UploadFile({ setURL, setMemes }) {
         type="file"
         accept="image/*"
         onChange={(event) => {
-          setFile(event.target.files[0]);
-          setURL(URL.createObjectURL(file));
+          setURL(URL.createObjectURL(event.target.files[0]));
           setMemes();
         }}
       ></input>
