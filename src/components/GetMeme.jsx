@@ -10,15 +10,12 @@ export default function GetMeme() {
   const [indexNumber, setIndexNumber] = useState(0);
   const [text0, setText0] = useState();
   const [text1, setText1] = useState();
-  const [URL, setURL] = useState();
+  const [URL, setURL] = useState("https://api.imgflip.com/get_memes");
   const [reset, setReset] = useState(true);
 
-  let url = "https://api.imgflip.com/get_memes";
-
-  const getMemefromAPI = async (url) => {
-    setURL();
+  const getMemefromAPI = async ({ URL }) => {
     try {
-      const response = await fetch(url);
+      const response = await fetch({ URL });
       const data = await response.json();
       setMemes(data.data.memes);
     } catch (error) {
@@ -83,9 +80,12 @@ export default function GetMeme() {
       });
   };
 
-  useEffect(() => {
-    getMemefromAPI(url);
-  }, [reset]);
+  useEffect(
+    ({ URL }) => {
+      getMemefromAPI({ URL });
+    },
+    [reset]
+  );
 
   useEffect(() => {
     setText0("");
