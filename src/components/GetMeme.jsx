@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import Draggable, { DraggableCore } from "react-draggable";
+import { useState, useEffect } from "react";
+import Draggable from "react-draggable";
 import UploadFile from "./UploadFile";
 import domtoimage from "dom-to-image";
 
@@ -13,7 +13,7 @@ export default function GetMeme() {
   const [URL, setURL] = useState();
   const [reset, setReset] = useState(true);
 
-  let primaryURL = "https://api.imgflip.com/get_memes";
+  let url = "https://api.imgflip.com/get_memes";
 
   const getMemefromAPI = async (url) => {
     setURL();
@@ -53,7 +53,7 @@ export default function GetMeme() {
   const postMeme = (e) => {
     e.preventDefault();
 
-    const part2Bsaved = document.getElementById("memeContainer");
+    // const part2Bsaved = document.getElementById("memeContainer");
 
     // domtoimage
     //   .toPng(part2Bsaved)
@@ -84,9 +84,8 @@ export default function GetMeme() {
   };
 
   useEffect(() => {
-    getMemefromAPI(primaryURL);
-    setReset(false);
-  }, [reset === true]);
+    getMemefromAPI(url);
+  }, [reset]);
 
   useEffect(() => {
     setText0("");
@@ -118,7 +117,7 @@ export default function GetMeme() {
         <div id="memeContainer" className="memeContainer">
           {URL && (
             <>
-              <img id="photo" src={URL} className="photo" alt=""></img>
+              <img id="photo" src={URL} className="photo" alt="meme"></img>
             </>
           )}
 
@@ -127,10 +126,10 @@ export default function GetMeme() {
               id="photo"
               className="photo"
               src={memes[indexNumber].url}
-              alt="meme image"
+              alt="meme"
             ></img>
           )}
-          <Draggable bounds="parent">
+          <Draggable bounds="parent" disabled={true}>
             <input
               id="input1"
               className="inputtext"
@@ -168,7 +167,7 @@ export default function GetMeme() {
         <button
           id="submit"
           onClick={(e) => {
-            setReset(true);
+            setReset(!reset);
             setText0("");
             setText1("");
             setIndexNumber(0);
