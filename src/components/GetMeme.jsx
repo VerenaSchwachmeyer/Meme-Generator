@@ -15,6 +15,7 @@ export default function GetMeme() {
   let primaryURL = "https://api.imgflip.com/get_memes";
 
   const getMemefromAPI = async (url) => {
+    setURL();
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -51,16 +52,34 @@ export default function GetMeme() {
   const postMeme = (e) => {
     e.preventDefault();
 
+    const part2Bsaved = document.getElementById("memeContainer");
+
     // domtoimage
-    //   .toPng(node)
+    //   .toPng(part2Bsaved)
     //   .then(function ({ URL }) {
     //     var img = new Image();
-    //     img.src = dataUrl;
+    //     img.src = { URL };
     //     document.body.appendChild(img);
     //   })
     //   .catch(function (error) {
     //     console.error("oops, something went wrong!", error);
     //   });
+    // console.log("here debug");
+
+    // domtoimage
+    //   .toBlob(document.getElementById("memeContainer"))
+    //   .then(function (blob) {
+    //     Window.saveAs(blob, "my-Meme.png");
+    //   });
+
+    domtoimage
+      .toJpeg(document.getElementById("memeContainer"), { quality: 0.95 })
+      .then(function (dataUrl) {
+        var link = document.createElement("a");
+        link.download = "my-meme.jpeg";
+        link.href = dataUrl;
+        link.click();
+      });
   };
 
   useEffect(() => {
@@ -76,23 +95,25 @@ export default function GetMeme() {
     <div>
       <div className="overallContainer">
         <UploadFile setURL={setURL} setMemes={setMemes} />
-        <div className="buttonContainer">
-          <button
-            onClick={() => {
-              decreaseIndexNumber();
-            }}
-          >
-            Previous
-          </button>
-          <button
-            onClick={() => {
-              increaseIndexNumber();
-            }}
-          >
-            Next
-          </button>
-        </div>
-        <div className="memeContainer">
+        {memes && (
+          <div className="buttonContainer">
+            <button
+              onClick={() => {
+                decreaseIndexNumber();
+              }}
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => {
+                increaseIndexNumber();
+              }}
+            >
+              Next
+            </button>
+          </div>
+        )}
+        <div id="memeContainer" className="memeContainer">
           {URL && (
             <>
               <img src={URL} className="photo" alt=""></img>
@@ -106,33 +127,32 @@ export default function GetMeme() {
               alt="meme image"
             ></img>
           )}
+          <Draggable>
+            <input
+              id="input1"
+              className="inputtext"
+              type="text"
+              value={text0}
+              placeholder="upper text - drag me!"
+              onChange={(e) => {
+                typeUpperMemeText(e);
+              }}
+            ></input>
+          </Draggable>
+          <Draggable>
+            <input
+              id="input2"
+              className="inputtext"
+              type="text"
+              value={text1}
+              placeholder="lower text - drag me!"
+              rows="2"
+              onChange={(e) => {
+                typeLowerMemeText(e);
+              }}
+            ></input>
+          </Draggable>
         </div>
-
-        <Draggable>
-          <input
-            id="input1"
-            className="inputtext"
-            type="text"
-            value={text0}
-            placeholder="upper text - drag me!"
-            onChange={(e) => {
-              typeUpperMemeText(e);
-            }}
-          ></input>
-        </Draggable>
-        <Draggable>
-          <input
-            id="input2"
-            className="inputtext"
-            type="text"
-            value={text1}
-            placeholder="lower text - drag me!"
-            rows="2"
-            onChange={(e) => {
-              typeLowerMemeText(e);
-            }}
-          ></input>
-        </Draggable>
 
         <button
           id="submit"
