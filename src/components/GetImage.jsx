@@ -12,6 +12,8 @@ export default function GetImage() {
   const [reset, setReset] = useState(true);
 
   const getMemefromAPI = async () => {
+    const randomNumber = Math.floor(Math.random() * 99);
+    setIndexNumber(randomNumber);
     try {
       const response = await fetch("https://api.imgflip.com/get_memes");
       const data = await response.json();
@@ -28,6 +30,8 @@ export default function GetImage() {
   const decreaseIndexNumber = () => {
     if (indexNumber >= 1) {
       setIndexNumber((indexNumber) => indexNumber - 1);
+    } else {
+      setIndexNumber(99);
     }
   };
 
@@ -36,6 +40,8 @@ export default function GetImage() {
     console.log(memes.length);
     if (indexNumber <= memes.length) {
       setIndexNumber((indexNumber) => indexNumber + 1);
+    } else {
+      setIndexNumber(0);
     }
   };
 
@@ -89,6 +95,7 @@ export default function GetImage() {
               alt="meme"
             ></img>
           )}
+
           <CreateTextBoxes
             text0={text0}
             text1={text1}
@@ -106,6 +113,7 @@ export default function GetImage() {
         >
           Download meme
         </button>
+
         <button
           id="submit"
           onClick={(e) => {
