@@ -6,7 +6,6 @@ function App() {
   return (
     <div className="App">
       <h1>MEMEFY YOUR THOUGHTS</h1>
-
       <p>
         <strong>
           Drag the text boxes where you want them and start typing!

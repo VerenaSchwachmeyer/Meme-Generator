@@ -59,9 +59,8 @@ export default function GetImage() {
   };
 
   return (
-    <div>
-      <div className="overallContainer">
-        <UploadFile setURL={setURL} setMemes={setMemes} />
+    <main>
+      <div className="colContainer1">
         {memes && (
           <div className="buttonContainer">
             <button
@@ -104,7 +103,9 @@ export default function GetImage() {
             indexNumber={indexNumber}
           />
         </div>
-
+      </div>
+      <div className="colContainer2">
+        <UploadFile setURL={setURL} setMemes={setMemes} />
         <button
           id="submit"
           onClick={(e) => {
@@ -127,6 +128,6 @@ export default function GetImage() {
           Reset
         </button>
       </div>
-    </div>
+    </main>
   );
 }
