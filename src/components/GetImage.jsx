@@ -9,7 +9,7 @@ export default function GetImage() {
   const [text0, setText0] = useState();
   const [text1, setText1] = useState();
   const [URL, setURL] = useState();
-  const [reset, setReset] = useState(true);
+  // const [reset, setReset] = useState(true);
 
   const getMemefromAPI = async () => {
     // const randomNumber = Math.floor(Math.random() * 99);
