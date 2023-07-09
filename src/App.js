@@ -13,7 +13,7 @@ function App() {
       </p>
       <p>
         Pick an image from our database that catches you and create your own
-        meme. Or upload your own file.
+        meme. Or upload your own image.
       </p>
       <GetImage />
       <Footer />
