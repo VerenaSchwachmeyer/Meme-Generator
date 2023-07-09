@@ -12,8 +12,8 @@ export default function GetImage() {
   const [reset, setReset] = useState(true);
 
   const getMemefromAPI = async () => {
-    const randomNumber = Math.floor(Math.random() * 99);
-    setIndexNumber(randomNumber);
+    // const randomNumber = Math.floor(Math.random() * 99);
+    // setIndexNumber(randomNumber);
     try {
       const response = await fetch("https://api.imgflip.com/get_memes");
       const data = await response.json();
@@ -72,6 +72,14 @@ export default function GetImage() {
             </button>
             <button
               onClick={() => {
+                const randomNumber = Math.floor(Math.random() * 99);
+                setIndexNumber(randomNumber);
+              }}
+            >
+              Surprise me
+            </button>
+            <button
+              onClick={() => {
                 increaseIndexNumber();
               }}
             >
@@ -118,14 +126,14 @@ export default function GetImage() {
         <button
           id="submit"
           onClick={(e) => {
-            setReset(!reset);
+            // setReset(!reset);
             setText0("");
             setText1("");
-            setURL();
-            setIndexNumber(0);
+            // setURL();
+            // setIndexNumber(0);
           }}
         >
-          Reset
+          Reset Text
         </button>
       </div>
     </main>
